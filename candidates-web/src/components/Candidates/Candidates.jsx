@@ -33,8 +33,7 @@ const Candidates = () => {
     const fetchData = async () => {
       await fetchCandidates({})
       await fetchRejectedReasons()
-      // eslint-disable-next-line no-debugger
-      debugger
+
       setFirstLoadEnded(true) // Set loading state to true when data is loaded
     }
 
@@ -127,7 +126,7 @@ const Candidates = () => {
   }
 
   return (
-    <div>
+    <div className='col-md-11 mx-auto'>
       { firstLoadEnded && <div className='table-container container'>
         <div className='table-responsive'>
           <h1>Your Desktop: <span className='text-warning'><b>{general.RECRUITER_NAME}</b></span></h1>
@@ -137,6 +136,7 @@ const Candidates = () => {
               className='btn btn-danger'
               onClick={() => forgetRecruiterName()}>Change Recruiter</button>
           </div>
+          <h3 className='filter-header'>Filters:</h3>
           <RadioOptions radioName="last-modified" radios={radios} radioValue={radioValue} handleSwitchChange={handleSwitchLastModifiedChange}></RadioOptions>
           <RadioOptions radioName="approved" radios={approveRadio} radioValue={radioApprovedValue} handleSwitchChange={handleSwitchApprovedChange}></RadioOptions>
           <div>

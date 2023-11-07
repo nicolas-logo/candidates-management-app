@@ -145,3 +145,19 @@ td {
 .rdt_Pagination > *:nth-child(-n+2) {
   display: none;
 }
+
+.btn-outline-primary {
+  --bs-btn-active-bg: #003687 !important;
+  //--bs-btn-color: white !important;
+}
+
+.btn-outline-danger {
+  --bs-btn-active-bg: #7e1b24 !important;
+  //--bs-btn-color: white !important;
+}
+
+.filter-header {
+  margin-top: 20px;
+}
+
+
