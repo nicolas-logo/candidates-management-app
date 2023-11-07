@@ -10,7 +10,8 @@ candidatesCtrl.GetCandidates = async (req, res) => {
   const page = parseInt(req.query.page) || 1; // Get the requested page number, default to 1
   const pageSize = parseInt(req.query.pageSize) || 10; // Get the page size, default to 10
   const filter = req.query.filter;
-  const { onlyMe } = req.query
+  const { onlyMe } = req.query;
+  const { rejectedEqualTo } = req.query
 
 
   try {
@@ -40,6 +41,9 @@ candidatesCtrl.GetCandidates = async (req, res) => {
     if (!_.isNil(onlyMe)) 
       query.last_modified_by = { $regex: onlyMe, $options: "i" };
     
+    if (!_.isEmpty(rejectedEqualTo))
+      query.rejected = rejectedEqualTo === 'true' ? true : false;
+    
     const totalCandidates = await Candidate.countDocuments(query);
     const candidates = await Candidate.find(query)
       .skip((page - 1) * pageSize) // Skip the first (page-1) * pageSize documents
@@ -52,13 +56,17 @@ candidatesCtrl.GetCandidates = async (req, res) => {
       pageSize
     });
   } catch (err) {
-    res.status(500).json({ error: "An error occurred" });
+    res.status(500).json({ error: "An error occurred", err });
   }
 };
 
 candidatesCtrl.UpdateCandidate = async (req, res) => {
   try {
-    const candidateUpdated = await Candidate.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    const { body } = req;
+
+    // If there is any reasonCode, the candidate is rejected
+    body.rejected = !_.isEmpty(body.reasonCodes);
+    const candidateUpdated = await Candidate.findByIdAndUpdate(req.params.id, body, { new: true });
 
     res.send({ candidateUpdated });
   } catch (err) {
