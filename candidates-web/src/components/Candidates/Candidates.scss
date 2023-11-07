@@ -140,3 +140,8 @@ td {
   text-align: left;
   font-size: 13px;
 }
+
+// hide page size since is not developed
+.rdt_Pagination > *:nth-child(-n+2) {
+  display: none;
+}

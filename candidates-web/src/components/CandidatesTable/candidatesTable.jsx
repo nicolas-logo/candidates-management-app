@@ -12,8 +12,6 @@ const CandidatesTable = ({ candidates, currentPage, totalPages, fetchCandidates 
   const general = useSelector((state) => state.general)
 
   useEffect(() => {
-    // eslint-disable-next-line no-debugger
-    debugger
     const savedHiddenColumnsRaw = localStorage.getItem(_.upperCase(general.RECRUITER_NAME))
     if (!_.isNil(savedHiddenColumnsRaw)) {
       setHiddenColumns(JSON.parse(savedHiddenColumnsRaw))
@@ -46,8 +44,6 @@ const CandidatesTable = ({ candidates, currentPage, totalPages, fetchCandidates 
   }))
 
   const handleChange = selectedOptions => {
-    // eslint-disable-next-line no-debugger
-    debugger
     const selectedColumns = selectedOptions.map(option => option.value)
     setHiddenColumns(selectedColumns)
 
@@ -55,7 +51,7 @@ const CandidatesTable = ({ candidates, currentPage, totalPages, fetchCandidates 
   }
 
   return (
-    <div className='container candidates-table'>
+    <div className='container candidates-table col-md-12'>
       <div className='hidden-columns-container'>
         <label>Hidden Columns:</label>
         <Select
@@ -67,7 +63,7 @@ const CandidatesTable = ({ candidates, currentPage, totalPages, fetchCandidates 
         />
       </div>
       {
-        candidates.length > 0 && <DataTable
+        <DataTable
           title='Candidates'
           columns={columns.filter(column => !hiddenColumns.includes(column.selector))}
           data={candidates}

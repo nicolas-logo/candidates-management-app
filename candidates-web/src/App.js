@@ -11,7 +11,7 @@ function App () {
   const general = useSelector((state) => state.general)
 
   return (
-    <div className="App d-flex justify-content-center align-items-center">
+    <div className="App container col-md-12">
       {
         general.RECRUITER_NAME
           ? <Candidates />

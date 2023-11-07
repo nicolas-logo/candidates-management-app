@@ -117,7 +117,7 @@ const Candidates = () => {
 
   return (
     <div>
-      { firstLoadEnded && <div className='table-container'>
+      { firstLoadEnded && <div className='table-container container'>
         <div className='table-responsive'>
           <h1>Your Desktop: <span className='text-warning'><b>{general.RECRUITER_NAME}</b></span></h1>
           <div>

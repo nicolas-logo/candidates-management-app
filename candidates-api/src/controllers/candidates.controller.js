@@ -20,8 +20,17 @@ candidatesCtrl.GetCandidates = async (req, res) => {
       // If a filter is provided, create a query that searches all candidate columns
       query = {
         $or: [
-          // Search string columns with case-insensitive regex
-          ...columns.filter((column) => candidateColumns[column].type === String).map((column) => ({
+          ...columns.filter((column) => {
+            // Exclude url columns (cv_zonajobs and cv_bumeran)
+            if (column === 'cv_zonajobs' || column === 'cv_bumeran' || column === 'id' || column === '_id') {
+              return false;
+            }
+            // Search other string columns with case-insensitive regex
+            if (candidateColumns[column].type === String) {
+              return true;
+            }
+            return false;
+          }).map((column) => ({
             [column]: { $regex: filter, $options: "i" },
           }))
         ],
@@ -40,6 +49,7 @@ candidatesCtrl.GetCandidates = async (req, res) => {
       candidates,
       totalPages: Math.ceil(totalCandidates / pageSize),
       currentPage: page,
+      pageSize
     });
   } catch (err) {
     res.status(500).json({ error: "An error occurred" });
