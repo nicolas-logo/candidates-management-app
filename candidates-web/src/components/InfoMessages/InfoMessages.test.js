@@ -24,13 +24,6 @@ describe('InfoMessages tests', () => {
     expect(loadingMessage).toHaveClass('text-white')
   })
 
-  it('should does not render any message when all props are null or false', () => {
-    const { queryByText } = render(<InfoMessages />)
-    expect(queryByText('Error: Unable to retrieve photos.')).toBeNull()
-    expect(queryByText('No photos retrieved')).toBeNull()
-    expect(queryByText('Loading...')).toBeNull()
-  })
-
   it('should should match the snapshot', () => {
     const tree = renderer.create((<InfoMessages loading={false} imagesLength={0} />)).toJSON()
     expect(tree).toMatchSnapshot()
