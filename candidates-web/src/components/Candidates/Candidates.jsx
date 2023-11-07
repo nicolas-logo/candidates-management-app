@@ -143,9 +143,7 @@ const Candidates = () => {
                 className='form-control btn-search'
                 onChange={(event) => { handleSearchText(event.target.value) }} />
           </div>
-
-          {candidates?.length > 0 &&
-            <CandidatesTable fetchCandidates={fetchCandidates} currentPage={currentPage} candidates={candidates} totalPages={totalPages} />}
+          <CandidatesTable fetchCandidates={fetchCandidates} currentPage={currentPage} candidates={candidates} totalPages={totalPages} />
         </div>
         <InfoMessages apiErrorMessage={apiErrorMessage} loading={loading} />
 
