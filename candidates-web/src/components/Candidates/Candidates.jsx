@@ -25,13 +25,20 @@ const Candidates = () => {
   const [searchText, setSearchText] = useState('')
   const [radioValue, setRadioValue] = useState(radiosValues.ALL)
   const general = useSelector((state) => state.general)
+  const [firstLoadEnded, setFirstLoadEnded] = useState(false)
 
   // when the component is rendered, ask for a token for the requests
   // and gets the candidates
   useEffect(() => {
-    fetchCandidates({})
-    fetchRejectedReasons()
+    const fetchData = async () => {
+      await fetchCandidates({})
+      await fetchRejectedReasons()
+      // eslint-disable-next-line no-debugger
+      debugger
+      setFirstLoadEnded(true) // Set loading state to true when data is loaded
+    }
 
+    fetchData()
     return () => {
       // canceling flying requests on component unmount
       CancelRequestToken({ requestToken })
@@ -109,7 +116,8 @@ const Candidates = () => {
   }
 
   return (
-    <div className='table-container'>
+    <div>
+      { firstLoadEnded && <div className='table-container'>
         <div className='table-responsive'>
           <h1>Your Desktop: <span className='text-warning'><b>{general.RECRUITER_NAME}</b></span></h1>
           <div>
@@ -147,8 +155,9 @@ const Candidates = () => {
         </div>
         <InfoMessages apiErrorMessage={apiErrorMessage} loading={loading} />
 
-        <div>
+          <div>
         </div>
+      </div>}
     </div>
   )
 }

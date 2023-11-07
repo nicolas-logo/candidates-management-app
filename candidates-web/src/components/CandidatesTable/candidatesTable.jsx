@@ -3,11 +3,23 @@ import { candidateColumns, conditionalRowStyles } from '../../utils/configData'
 import DataTable from 'react-data-table-component'
 import RejectedReasons from '../RejectedReasons/RejectedReasons'
 import Select from 'react-select'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
+import _ from 'lodash'
 
 const CandidatesTable = ({ candidates, currentPage, totalPages, fetchCandidates }) => {
   const [hiddenColumns, setHiddenColumns] = useState([])
-  // const [searchText, setSearchText] = useState('')
+  const general = useSelector((state) => state.general)
+
+  useEffect(() => {
+    // eslint-disable-next-line no-debugger
+    debugger
+    const savedHiddenColumnsRaw = localStorage.getItem(_.upperCase(general.RECRUITER_NAME))
+    if (!_.isNil(savedHiddenColumnsRaw)) {
+      setHiddenColumns(JSON.parse(savedHiddenColumnsRaw))
+    }
+  }, [])
+
   const handleTableChange = ({ page }) => {
     fetchCandidates(page)
   }
@@ -34,8 +46,12 @@ const CandidatesTable = ({ candidates, currentPage, totalPages, fetchCandidates 
   }))
 
   const handleChange = selectedOptions => {
+    // eslint-disable-next-line no-debugger
+    debugger
     const selectedColumns = selectedOptions.map(option => option.value)
     setHiddenColumns(selectedColumns)
+
+    localStorage.setItem(_.upperCase(general.RECRUITER_NAME), JSON.stringify(selectedColumns))
   }
 
   return (
@@ -45,6 +61,7 @@ const CandidatesTable = ({ candidates, currentPage, totalPages, fetchCandidates 
         <Select
           isMulti
           options={options}
+          value={hiddenColumns.map(column => ({ label: _.upperCase(column), value: column }))}
           onChange={handleChange}
           placeholder="Select columns to hide..."
         />
