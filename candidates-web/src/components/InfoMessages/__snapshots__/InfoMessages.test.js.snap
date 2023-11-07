@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InfoMessages tests should should match the snapshot 1`] = `
+<div
+  data-testid="info-messages"
+>
+  <span
+    className="text-danger"
+  />
+</div>
+`;

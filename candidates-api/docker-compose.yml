@@ -1,0 +1,21 @@
+version: "3"
+
+services:
+  mongo:
+    container_name: mongo_candidates_db
+    image: mongo
+    ports:
+      - "27017:27017"
+    logging:
+      driver: none
+    command: mongod --quiet --logpath /dev/null
+  service:
+    container_name: candiates_api
+    restart: always
+    build: .
+    ports:
+      - "4000:4000"
+    links:
+      - mongo
+    volumes:
+      - .:/usr/src/app

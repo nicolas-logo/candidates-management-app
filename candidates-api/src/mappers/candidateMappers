@@ -1,0 +1,19 @@
+const mapCandidates = (data) => {
+  const booleanFields = [
+    "has_university",
+    "accepts_working_hours",
+    "had_interview",
+  ];
+
+  for (const field of booleanFields) {
+    if (data[field] === "Si") {
+      data[field] = true;
+    } else {
+      data[field] = false;
+    }
+  }
+
+  return data;
+};
+
+module.exports = { mapCandidates };

@@ -1,0 +1,46 @@
+.lobby {
+  width: 100%;
+  height: 100%;
+}
+
+#title {
+  color: white;
+  font-family: var(--font);
+  margin: 0px;
+  pointer-events: none;
+  transition: opacity 1200ms ease;
+  z-index: 3;
+  font-size: 4rem;
+  padding-top: 140px;
+}
+
+.fancy {
+  color: #ff3434;
+  font-family: "Dancing Script", cursive;
+  font-size: 1.5em;
+  line-height: 0.9em;
+}
+
+.spanInput {
+  font-family: "VT323", monospace;
+  color: white;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 3rem;
+}
+
+.candidateInput {
+  height: 70px;
+  font-size: 40px !important;
+  font-family: "VT323", monospace !important;
+}
+
+.validate-text {
+  font-size: 1.5rem;
+}
+
+.span-generate {
+  color: white;
+  margin-top: 20px;
+  font-size: 15px;
+}

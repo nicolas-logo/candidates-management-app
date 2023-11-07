@@ -1,0 +1,13 @@
+#root {
+  width: 100%;
+}
+
+body {
+  height: 100vh;
+  width: 100vw;
+  background-color: black;
+  margin: 0rem;
+  overflow-x: hidden;
+  font-family: "Lato", sans-serif;
+}
+

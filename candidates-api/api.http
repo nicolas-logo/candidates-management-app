@@ -1,0 +1,15 @@
+###
+GET http://localhost:4000/api/candidates
+
+###
+GET http://localhost:4000/api/rejectedReasons
+
+###
+PUT http://localhost:4000/api/candidates/6549338f32703305681b704d
+Content-Type: application/json
+
+{
+    "reason": "No compio",
+    "reasonCodes": "1"
+}
+
