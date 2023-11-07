@@ -30,8 +30,20 @@ export const radiosValues = {
 }
 
 export const radios = [
-  { name: 'ALL', value: radiosValues.ALL },
-  { name: 'Only Mine', value: radiosValues.ONLY_MINE }
+  { name: 'ALL', value: radiosValues.ALL, className: 'outline-primary' },
+  { name: 'Only Mine', value: radiosValues.ONLY_MINE, className: 'outline-warning' }
+]
+
+export const approveRadioValues = {
+  APPROVED_REJECTED: '1',
+  REJECTED: '2',
+  APPROVED: '3'
+}
+
+export const approveRadio = [
+  { name: 'Rejected & Approved', value: approveRadioValues.APPROVED_REJECTED, className: 'outline-primary' },
+  { name: 'Rejected', value: approveRadioValues.REJECTED, className: 'outline-danger' },
+  { name: 'Approved', value: approveRadioValues.APPROVED, className: 'outline-success' }
 ]
 
 export const conditionalRowStyles = [

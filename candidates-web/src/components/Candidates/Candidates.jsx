@@ -4,10 +4,9 @@ import { GetRequestToken, CancelRequestToken, GetCandidates, GetRejectedReasons 
 import { useDispatch, useSelector } from 'react-redux'
 import { InfoMessages } from '../InfoMessages/InfoMessages'
 import CandidatesTable from '../CandidatesTable/candidatesTable'
+import RadioOptions from '../RadioOptions/RadioOptions'
 import { setRecruiterName, setRejectedReasons } from '../../redux/generalSlice'
-import ToggleButton from 'react-bootstrap/ToggleButton'
-import ButtonGroup from 'react-bootstrap/ButtonGroup'
-import { radios, radiosValues } from '../../utils/configData'
+import { radios, radiosValues, approveRadio, approveRadioValues } from '../../utils/configData'
 import _ from 'lodash'
 
 import './Candidates.scss'
@@ -24,6 +23,7 @@ const Candidates = () => {
   const [currentPage, setCurrentPage] = useState(0)
   const [searchText, setSearchText] = useState('')
   const [radioValue, setRadioValue] = useState(radiosValues.ALL)
+  const [radioApprovedValue, setRadioApprovedValue] = useState(approveRadioValues.APPROVED_REJECTED)
   const general = useSelector((state) => state.general)
   const [firstLoadEnded, setFirstLoadEnded] = useState(false)
 
@@ -57,6 +57,13 @@ const Candidates = () => {
       filters.page = 1
     }
 
+    if (radioApprovedValue === approveRadioValues.APPROVED || radioApprovedValue === approveRadioValues.REJECTED) {
+      // rejectedEqualTo: true = rejected.
+      // rejectedEqualTo: false = approved.
+      filters.rejectedEqualTo = radioApprovedValue === approveRadioValues.REJECTED
+      filters.page = 1
+    }
+
     setLoading(true)
     setCandidates([])
     try {
@@ -78,7 +85,7 @@ const Candidates = () => {
     } finally {
       setLoading(false)
     }
-  }, [searchText, radioValue])
+  }, [searchText, radioValue, radioApprovedValue])
 
   // attached to redux to avoid recalls on rerenders on Reject Component
   const fetchRejectedReasons = async () => {
@@ -109,10 +116,14 @@ const Candidates = () => {
   useEffect(() => {
     fetchCandidatesDebounced()
     return () => fetchCandidatesDebounced.cancel()
-  }, [searchText, radioValue])
+  }, [searchText, radioValue, radioApprovedValue])
 
-  const handleSwitchChange = (value) => {
+  const handleSwitchLastModifiedChange = (value) => {
     setRadioValue(value)
+  }
+
+  const handleSwitchApprovedChange = (value) => {
+    setRadioApprovedValue(value)
   }
 
   return (
@@ -126,24 +137,8 @@ const Candidates = () => {
               className='btn btn-danger'
               onClick={() => forgetRecruiterName()}>Change Recruiter</button>
           </div>
-          <div>
-            <ButtonGroup toggle>
-              {radios.map((radio, idx) => (
-                <ToggleButton
-                  key={idx}
-                  id={`radio-${idx}`}
-                  type="radio"
-                  variant={idx % 2 ? 'outline-warning' : 'outline-success'}
-                  name="radio"
-                  value={radio.value}
-                  checked={radioValue === radio.value}
-                  onChange={(event) => handleSwitchChange(event.currentTarget.value)}
-                >
-                  {radio.name}
-                </ToggleButton>
-              ))}
-            </ButtonGroup>
-          </div>
+          <RadioOptions radioName="last-modified" radios={radios} radioValue={radioValue} handleSwitchChange={handleSwitchLastModifiedChange}></RadioOptions>
+          <RadioOptions radioName="approved" radios={approveRadio} radioValue={radioApprovedValue} handleSwitchChange={handleSwitchApprovedChange}></RadioOptions>
           <div>
             <input
                 placeholder="Search for candidate..."
