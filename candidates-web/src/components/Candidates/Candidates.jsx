@@ -6,7 +6,7 @@ import { InfoMessages } from '../InfoMessages/InfoMessages'
 import CandidatesTable from '../CandidatesTable/candidatesTable'
 import RadioOptions from '../RadioOptions/RadioOptions'
 import { setRecruiterName, setRejectedReasons } from '../../redux/generalSlice'
-import { radios, radiosValues, approveRadio, approveRadioValues } from '../../utils/configData'
+import { radios, radiosValues, approveRadio, approveRadioValues, debounceTimeMs } from '../../utils/configData'
 import _ from 'lodash'
 
 import './Candidates.scss'
@@ -112,7 +112,7 @@ const Candidates = () => {
   }, [dispatch])
 
   // Creates a debounce function for fetchCandidates
-  const fetchCandidatesDebounced = useMemo(() => _.debounce(fetchCandidates, 500), [fetchCandidates])
+  const fetchCandidatesDebounced = useMemo(() => _.debounce(fetchCandidates, debounceTimeMs), [fetchCandidates])
 
   // update the search text, triggering fetchCandidates
   const handleSearchText = useCallback((text) => {

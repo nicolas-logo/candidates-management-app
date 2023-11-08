@@ -46,6 +46,8 @@ export const approveRadio = [
   { name: 'Approved', value: approveRadioValues.APPROVED, className: 'outline-success' }
 ]
 
+export const debounceTimeMs = 500
+
 export const conditionalRowStyles = [
   {
     when: row => row.reason === '',
