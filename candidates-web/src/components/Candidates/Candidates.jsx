@@ -48,6 +48,7 @@ const Candidates = () => {
   const fetchCandidates = useCallback(async (page) => {
     requestToken = await GetRequestToken()
 
+    // build the filters
     const filters = {}
     page ? filters.page = page : filters.page = currentPage
     if (!_.isNil(searchText)) filters.filter = searchText
@@ -86,12 +87,14 @@ const Candidates = () => {
     }
   }, [searchText, radioValue, radioApprovedValue])
 
+  // Gets the Rejected Reasons list
   // attached to redux to avoid recalls on rerenders on Reject Component
   const fetchRejectedReasons = async () => {
     try {
       requestToken = await GetRequestToken()
       const response = await GetRejectedReasons({ requestToken })
 
+      // maps the options to be showed on the select component
       const mappedOptions = response.rejectedReasons.map((reason) => ({
         label: reason.reason,
         value: reason.code
@@ -108,9 +111,10 @@ const Candidates = () => {
     dispatch(setRecruiterName(null))
   }, [dispatch])
 
-  // Creates a debounce function for GetCoins
+  // Creates a debounce function for fetchCandidates
   const fetchCandidatesDebounced = _.debounce(fetchCandidates, 500)
 
+  // update the search text, triggering fetchCandidates
   const handleSearchText = (text) => {
     setSearchText(text)
   }
@@ -121,10 +125,12 @@ const Candidates = () => {
     return () => fetchCandidatesDebounced.cancel()
   }, [searchText, radioValue, radioApprovedValue])
 
+  // update the ALL/Only Me radio value, triggering fetchCandidates
   const handleSwitchLastModifiedChange = (value) => {
     setRadioValue(value)
   }
 
+  // update the Approved & Rejected/Approved/Rejected radio value, triggering fetchCandidates
   const handleSwitchApprovedChange = (value) => {
     setRadioApprovedValue(value)
   }

@@ -11,6 +11,7 @@ const CandidatesTable = ({ candidates, currentPage, totalPages, fetchCandidates 
   const [hiddenColumns, setHiddenColumns] = useState([])
   const general = useSelector((state) => state.general)
 
+  // looks for the saved hidden columns on localStorage and load them
   useEffect(() => {
     const savedHiddenColumnsRaw = localStorage.getItem(_.upperCase(general.RECRUITER_NAME))
     if (!_.isNil(savedHiddenColumnsRaw)) {
@@ -18,16 +19,18 @@ const CandidatesTable = ({ candidates, currentPage, totalPages, fetchCandidates 
     }
   }, [])
 
+  // ask for the next page with the current filters
   const handleTableChange = ({ page }) => {
     fetchCandidates(page)
   }
 
+  // Checks to determine if a string is a URL so is showed as a link
   const isURL = (str) => {
-    // A simple check to determine if a string is a URL
     const urlPattern = /^https?:\/\/\S+/
     return urlPattern.test(str)
   }
 
+  // builds the columns and each cell, in case of the content is an URL, it's showed as a link
   const columns = Object.keys(candidateColumns).map((key) => ({
     name: candidateColumns[key],
     selector: key,
@@ -38,12 +41,14 @@ const CandidatesTable = ({ candidates, currentPage, totalPages, fetchCandidates 
     )
   }))
 
+  // builds the columns to be showed on the hidden column component
   const options = columns.map(column => ({
     label: column.name,
     value: column.selector
   }))
 
-  const handleChange = selectedOptions => {
+  // updates the selected hidden columns on the component and on the localStorage for that recruiter name
+  const handleChangeColumns = selectedOptions => {
     const selectedColumns = selectedOptions.map(option => option.value)
     setHiddenColumns(selectedColumns)
 
@@ -58,7 +63,7 @@ const CandidatesTable = ({ candidates, currentPage, totalPages, fetchCandidates 
           isMulti
           options={options}
           value={hiddenColumns.map(column => ({ label: _.upperCase(column), value: column }))}
-          onChange={handleChange}
+          onChange={handleChangeColumns}
           placeholder="Select columns to hide..."
         />
       </div>

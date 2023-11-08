@@ -2,7 +2,7 @@ const rejectedReasonCtrl = {};
 
 const RejectedReason = require("../models/RejectedReason");
 
-rejectedReasonCtrl.GetRejectedReasons = async (req, res) => {debugger
+rejectedReasonCtrl.GetRejectedReasons = async (req, res) => {
   try {   
     const rejectedReasons = await RejectedReason.find();
 

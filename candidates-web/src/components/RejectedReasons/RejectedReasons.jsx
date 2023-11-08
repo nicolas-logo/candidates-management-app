@@ -14,8 +14,6 @@ const RejectedReasons = ({ row }) => {
   const [errorMessage, setErrorMessage] = useState('')
   const general = useSelector((state) => state.general)
 
-  // when the component is rendered, ask for a token for the requests
-  // and gets the candidates
   useEffect(() => {
     setRejectedReasons(general.REJECTED_REASONS)
 
@@ -36,10 +34,12 @@ const RejectedReasons = ({ row }) => {
     }
   }, [])
 
+  // updates the rejected reasons selected list
   const handleRejectedReasonsChange = (selected) => {
     setRejectedReasonsSelected(selected)
   }
 
+  // saves the rejected reasons list for that candidates along with the recruiter name
   const handleSave = async () => {
     try {
       setLoading(true)
