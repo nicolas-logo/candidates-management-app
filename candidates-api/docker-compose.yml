@@ -17,5 +17,3 @@ services:
       - "4000:4000"
     links:
       - mongo
-    volumes:
-      - .:/usr/src/app
