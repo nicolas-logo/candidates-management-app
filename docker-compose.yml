@@ -14,13 +14,10 @@ services:
     container_name: candidates_api
     build:
       context: ./candidates-api
-      dockerfile: Dockerfile
     ports:
       - "4000:4000"
     links:
       - mongo
-    volumes:
-      - ./candidates-api:/usr/src/app
     depends_on:
       - mongo
 
