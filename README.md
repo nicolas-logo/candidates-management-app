@@ -52,7 +52,7 @@ There are a couple of filters that you can apply (you can apply more than one):
 
 `ALL / Only Me`: 'Only Me' will show only the candidates that your recruiter's name is the last one that saved a rejected reasons update.\
 `Rejected & Approved / Rejected / Approved`: It will show only Approved/Rejected candidates or both.\
-`Search text`: It will search the input text on the applicable columns.\
+`Search text`: It will search the input text on the applicable columns.
 
 ### Change Recruiter Name
 - You can change your recruiter name, it will redirect you to the lobby page.
