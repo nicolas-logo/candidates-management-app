@@ -50,9 +50,9 @@ Make sure you have the ports `27017`, `4000`, and `3000` available
 There are a couple of filters that you can apply (you can apply more than one):
 ![image](https://github.com/nicolas-logo/candidates-management-app/assets/26005281/caaca555-4982-4515-b4f6-c08dcd54d05a)
 
-`ALL / Only Me`: 'Only Me' will show only the candidates that your recruiter's name is the last one that saved a rejected reasons update.
-`Rejected & Approved / Rejected / Approved`: It will show only Approved/Rejected candidates or both.
-`Search text`: It will search the input text on the applicable columns.
+`ALL / Only Me`: 'Only Me' will show only the candidates that your recruiter's name is the last one that saved a rejected reasons update.\
+`Rejected & Approved / Rejected / Approved`: It will show only Approved/Rejected candidates or both.\
+`Search text`: It will search the input text on the applicable columns.\
 
 ### Change Recruiter Name
 - You can change your recruiter name, it will redirect you to the lobby page.
