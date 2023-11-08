@@ -88,14 +88,18 @@ const Candidates = () => {
 
   // attached to redux to avoid recalls on rerenders on Reject Component
   const fetchRejectedReasons = async () => {
-    requestToken = await GetRequestToken()
-    const response = await GetRejectedReasons({ requestToken })
+    try {
+      requestToken = await GetRequestToken()
+      const response = await GetRejectedReasons({ requestToken })
 
-    const mappedOptions = response.rejectedReasons.map((reason) => ({
-      label: reason.reason,
-      value: reason.code
-    }))
-    dispatch(setRejectedReasons(mappedOptions))
+      const mappedOptions = response.rejectedReasons.map((reason) => ({
+        label: reason.reason,
+        value: reason.code
+      }))
+      dispatch(setRejectedReasons(mappedOptions))
+    } catch (error) {
+      setApiErrorMessage('An error occurred while fetching candidates.')
+    }
   }
 
   // resets the saved recruiter name
