@@ -3,7 +3,7 @@ import { candidateColumns, conditionalRowStyles } from '../../utils/configData'
 import DataTable from 'react-data-table-component'
 import RejectedReasons from '../RejectedReasons/RejectedReasons'
 import Select from 'react-select'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useMemo } from 'react'
 import { useSelector } from 'react-redux'
 import _ from 'lodash'
 
@@ -31,21 +31,29 @@ const CandidatesTable = ({ candidates, currentPage, totalPages, fetchCandidates 
   }
 
   // builds the columns and each cell, in case of the content is an URL, it's showed as a link
-  const columns = Object.keys(candidateColumns).map((key) => ({
-    name: candidateColumns[key],
-    selector: key,
-    cell: (row) => (
-      isURL(row[key])
-        ? (<a href={row[key]} target="_blank" rel="noopener noreferrer">Visit Profile</a>)
-        : (row[key].toString())
-    )
-  }))
+  const columns = useMemo(() => {
+    return Object.keys(candidateColumns).map((key) => ({
+      name: candidateColumns[key],
+      selector: key,
+      cell: (row) => (isURL(row[key])
+        ? (
+        <a href={row[key]} target="_blank" rel="noopener noreferrer">
+          Visit Profile
+        </a>
+          )
+        : (
+            row[key].toString()
+          ))
+    }))
+  }, [])
 
   // builds the columns to be showed on the hidden column component
-  const options = columns.map(column => ({
-    label: column.name,
-    value: column.selector
-  }))
+  const options = useMemo(() => {
+    return columns.map((column) => ({
+      label: column.name,
+      value: column.selector
+    }))
+  }, [columns])
 
   // updates the selected hidden columns on the component and on the localStorage for that recruiter name
   const handleChangeColumns = selectedOptions => {
