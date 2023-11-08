@@ -1,5 +1,5 @@
 /* eslint-disable no-fallthrough */
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useMemo } from 'react'
 import { GetRequestToken, CancelRequestToken, GetCandidates, GetRejectedReasons } from '../../services/candidatesService'
 import { useDispatch, useSelector } from 'react-redux'
 import { InfoMessages } from '../InfoMessages/InfoMessages'
@@ -112,12 +112,12 @@ const Candidates = () => {
   }, [dispatch])
 
   // Creates a debounce function for fetchCandidates
-  const fetchCandidatesDebounced = _.debounce(fetchCandidates, 500)
+  const fetchCandidatesDebounced = useMemo(() => _.debounce(fetchCandidates, 500), [fetchCandidates])
 
   // update the search text, triggering fetchCandidates
-  const handleSearchText = (text) => {
+  const handleSearchText = useCallback((text) => {
     setSearchText(text)
-  }
+  }, [])
 
   // uses debounce to wait until the user stop typing
   useEffect(() => {
@@ -126,14 +126,14 @@ const Candidates = () => {
   }, [searchText, radioValue, radioApprovedValue])
 
   // update the ALL/Only Me radio value, triggering fetchCandidates
-  const handleSwitchLastModifiedChange = (value) => {
+  const handleSwitchLastModifiedChange = useCallback((value) => {
     setRadioValue(value)
-  }
+  }, [])
 
   // update the Approved & Rejected/Approved/Rejected radio value, triggering fetchCandidates
-  const handleSwitchApprovedChange = (value) => {
+  const handleSwitchApprovedChange = useCallback((value) => {
     setRadioApprovedValue(value)
-  }
+  }, [])
 
   return (
     <div className='col-md-11 mx-auto'>
