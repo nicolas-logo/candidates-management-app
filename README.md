@@ -1,7 +1,7 @@
 ![image](https://github.com/nicolas-logo/candidates-management-app/assets/26005281/319cf622-4b01-4338-8a9c-9dd84007d924)
 # CANDIDATES MANAGEMENT APP
 
-This App uses a Mongo database, an Express server and a React App.
+This App uses a **Mongo** database, an **Express** server and a **React** App.\
 You will need [Docker](https://www.docker.com/products/personal/) installed to run this app.\
 Or you will have to run each app separately.
 
