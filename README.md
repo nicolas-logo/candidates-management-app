@@ -62,7 +62,7 @@ There are a couple of filters that you can apply (you can apply more than one):
 
 ### Technical Annotations:
 - The recruiter name entered is not case sensitive.
-- Search text will be applied to boolean and URL columns.
+- Search text will not be applied to boolean and URL columns.
 - Searching and filtering have a debounce of 500ms, preventing sending multiple requests.
 - A cancel token logic is applied when sending a request, this means that if a previous request is pending and a new one is sent, the previous one is canceled.
 - An item is set on the local storage for each recruiter's name once it hides a column.
