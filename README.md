@@ -1,4 +1,5 @@
-![image](https://github.com/nicolas-logo/candidates-management-app/assets/26005281/319cf622-4b01-4338-8a9c-9dd84007d924)
+![image](https://github.com/nicolas-logo/candidates-management-app/assets/26005281/5c8756e6-c145-4dab-809e-0f03d0a9c611)
+
 # CANDIDATES MANAGEMENT APP
 
 
